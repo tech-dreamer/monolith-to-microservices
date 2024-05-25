@@ -24,12 +24,12 @@ const orders = require("./data/orders.json").orders;
 //Enable cors
 app.use(cors());
 
-const mysql = require('mysql');
+const mysql = require("mysql");
 var connection = mysql.createConnection({host: "10.54.32.3", user: "root"});
 var msg = "";
 connection.connect(function(err) {
     if (err) {
-        msg = "error";
+        msg = err.toString();
         return;
     }
     msg = "success";
