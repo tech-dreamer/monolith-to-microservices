@@ -35,3 +35,13 @@ app.get("/api/orders/:id", (req, res) =>
 app.listen(port, () =>
   console.log(`Orders microservice listening on port ${port}!`)
 );
+
+const mysql = require('mysql');
+var connection = mysql.createConnection({host: "10.54.32.3", user: "root"});
+connection.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    }
+    console.log('connected as id ' + connection.threadId);
+});
