@@ -24,8 +24,20 @@ const orders = require("./data/orders.json").orders;
 //Enable cors
 app.use(cors());
 
+const mysql = require('mysql');
+var connection = mysql.createConnection({host: "10.54.32.3", user: "root"});
+var msg = "";
+connection.connect(function(err) {
+    if (err) {
+        msg = "error";
+        return;
+    }
+    msg = "success";
+});
+app.get("/api/orders", (req, res) => res.json(msg));
+
 //Get all orders
-app.get("/api/orders", (req, res) => res.json(orders));
+// app.get("/api/orders", (req, res) => res.json(orders));
 
 //Get orders by ID
 app.get("/api/orders/:id", (req, res) =>
@@ -35,13 +47,3 @@ app.get("/api/orders/:id", (req, res) =>
 app.listen(port, () =>
   console.log(`Orders microservice listening on port ${port}!`)
 );
-
-const mysql = require('mysql');
-var connection = mysql.createConnection({host: "10.54.32.3", user: "root"});
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
-});
